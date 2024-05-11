@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="game.css">
+  <title>Game</title>
+</head>
+<body>
+  <h1>ROCK PAPER SCISSORS</h1>
+  <button class="choice_button" onclick="
+  let comMsg=getComputerChoice();
+  let resMsg=getResult('Rock',comMsg);
+  getAlertMsg('Rock',comMsg,resMsg);
+   
+  "><img src="./rock.jpeg" class="choice_img"></button>
+  <button class="choice_button" onclick="
+  comMsg=getComputerChoice();
+  resMsg=getResult('Paper',comMsg);
+  getAlertMsg('Paper',comMsg,resMsg);
+  "><img src="./paper.jpeg" class="choice_img"></button>
+  <button class="choice_button" onclick="
+  comMsg=getComputerChoice();
+  resMsg=getResult('Scissors',comMsg);
+  getAlertMsg('Scissors',comMsg,resMsg);
+   "><img src="./scissors.jpeg" class="choice_img"></button>
+    <h3 id="user_choice"></h3>
+    <h3 id="computer_choice"></h3>
+    <h3 id="result"></h3>
+    <h3 id="showScore"></h3>
+    <button class="reset" onclick="localStorage.clear()
+    ResetScore();
+    "><img src="./restart.png" class="restart"></button>
+  <script>
+    function getComputerChoice(){
+      let randomNum=Math.random()*3;
+      if(randomNum>0 && randomNum<=1)
+      return 'Rock';
+      else if(randomNum>1 && randomNum<=2)
+      return 'Paper';
+      else
+      return 'Scissors';
+    }
+    function getResult(UserChoice,ComputerChoice){
+      if(UserChoice==='Rock'){
+        if(ComputerChoice==='Rock'){
+        return 'It is a tie';
+        }
+        else if(ComputerChoice==='Paper'){
+        Score.computer+=1;
+        return 'Computer  won';
+        }
+        else{
+        Score.player+=1;
+        return '🥳User won!🎊';
+        }
+      }
+      else if(UserChoice==='Paper'){
+        if(ComputerChoice==='Rock'){
+        Score.player+=1;
+        return '🥳User won!🎊';
+        }
+        else if(ComputerChoice==='Paper')
+        {
+         // Score.tie+=1;
+        return 'It is a tie';
+        }
+        else{
+          Score.computer+=1;
+        return 'Computer won';
+        }
+
+      }
+      else{
+        if(ComputerChoice==='Rock'){
+          Score.computer+=1;
+        return 'Computer won';
+        }
+        else if(ComputerChoice==='Paper'){
+        Score.player+=1;
+        return '🥳User won!🎊';
+        }
+        else{
+         // Score.tie+=1;
+        return 'It is a tie';
+        }
+
+      }
+    }
+    function getAlertMsg(UserChoice,ComputerChoice,resMsg){
+      localStorage.setItem('scores',JSON.stringify(Score));
+      document.querySelector('#user_choice').innerText=
+      UserChoice?`Player Move: ${UserChoice}`: '';
+      document.querySelector('#computer_choice').innerText=
+      ComputerChoice?`Computer Move: ${ComputerChoice}`:'';
+    document.querySelector('#result').innerText=resMsg? resMsg:'';
+    document.querySelector('#showScore').innerText=Score.displayScore();
+    }
+    let str=localStorage.getItem('scores');
+    let Score;
+    ResetScore(str);
+    function ResetScore(str)
+    {
+      if(str !== undefined)
+    {
+      Score=JSON.parse(str);
+    }
+    else{
+    Score={
+     // win: 0,
+     // lost: 0,
+     // tie: 0,
+     player: 0,
+     computer: 0,
+    }
+    }
+      Score.displayScore=function() {
+        //return `Score: ${Score.win}, lost ${Score.lost}, tie ${Score.tie}`;
+        return `Player Score: ${Score.player}
+        Computer Score: ${Score.computer}`;
+    }
+    getAlertMsg();
+    }
+  </script>
+</body>
+</html>

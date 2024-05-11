@@ -1,0 +1,30 @@
+body{
+  text-align: center;
+  background-color: rgb(212, 243, 245);
+  font-weight: bold;
+}
+.choice_button{
+  border: none;
+  margin: 10px;
+  cursor: pointer;
+}
+h1{
+  color: black;
+}
+.restart{
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+  border-radius: 25px;
+}
+.choice_img{
+  height: 120px;
+  width: 120px;
+}
+#result{
+  color: rgb(17, 244, 6);
+  font-size: 30px;
+}
+.reset{
+  border-radius: 25px;
+}
